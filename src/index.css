@@ -1,0 +1,76 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-canvas: #f4ede4;
+  --color-surface: #fbf7f1;
+  --color-ink: #2c2118;
+  --color-mute: #7a6554;
+  --color-hint: #a8907c;
+  --color-border: rgb(90 62 42 / 0.14);
+  --color-accent: #c4782a;
+  --color-accent-soft: rgb(196 120 42 / 0.16);
+  --color-available: #3f6f4a;
+  --color-reserved: #c4a035;
+  --color-repair: #3d5a73;
+  --color-ready: #c46a3a;
+  --color-sold: #9a3b32;
+  --color-na: #4a433c;
+  --shadow-timber: 0 8px 24px -8px rgb(74 48 28 / 0.08);
+}
+
+html,
+body,
+#root {
+  min-height: 100dvh;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #efe6da 0%, #f7f1e8 50%, #efe6da 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
