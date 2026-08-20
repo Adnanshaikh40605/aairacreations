@@ -62,14 +62,14 @@ export function AddProductPage(_props: AddProductPageProps) {
     <>
       <TopBar title="Add product" backTo="/inventory" />
       <form
-        className="space-y-4 px-4"
+        className="space-y-3 px-4 pt-3"
         onSubmit={form.handleSubmit((v) => mutate.mutate(v))}
       >
         <Field label="Product name" error={form.formState.errors.name?.message}>
           <Input {...form.register('name')} />
         </Field>
         <Field label="Product code">
-          <Input {...form.register('code')} />
+          <Input className="font-mono" {...form.register('code')} />
         </Field>
         <Field label="Category">
           <Input {...form.register('category')} placeholder="Sofa" />
@@ -119,7 +119,7 @@ export function AddProductPage(_props: AddProductPageProps) {
           </Field>
         ) : null}
         <Field label="Purchase price (₹)">
-          <Input type="number" {...form.register('purchasePrice')} />
+          <Input className="font-mono" type="number" {...form.register('purchasePrice')} />
         </Field>
         <Field label="Description">
           <TextArea {...form.register('description')} />

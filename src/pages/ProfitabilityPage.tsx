@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { Rupee } from '../components/money/Rupee.tsx'
+import { Card } from '../components/ui/Card.tsx'
+import { Chip } from '../components/ui/Chip.tsx'
+import { PageBody } from '../components/ui/PageBody.tsx'
 import { TopBar } from '../components/layout/TopBar.tsx'
 import { useProductProfit } from '../hooks/useApi.ts'
 import { formatPct } from '../lib/money.ts'
@@ -15,53 +18,47 @@ export function ProfitabilityPage(_props: ProfitabilityPageProps) {
   return (
     <>
       <TopBar title="Product profit" />
-      <div className="px-4">
-        <div className="mb-3 grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            className={`min-h-11 rounded-xl border ${dir === 'high' ? 'border-accent bg-accent-soft text-accent' : 'border-border'}`}
-            onClick={() => setDir('high')}
-          >
+      <PageBody>
+        <div className="grid grid-cols-2 gap-2">
+          <Chip selected={dir === 'high'} onClick={() => setDir('high')} className="w-full rounded-[0.875rem]">
             Highest profit
-          </button>
-          <button
-            type="button"
-            className={`min-h-11 rounded-xl border ${dir === 'low' ? 'border-accent bg-accent-soft text-accent' : 'border-border'}`}
-            onClick={() => setDir('low')}
-          >
+          </Chip>
+          <Chip selected={dir === 'low'} onClick={() => setDir('low')} className="w-full rounded-[0.875rem]">
             Lowest profit
-          </button>
+          </Chip>
         </div>
-        <table className="w-full text-left text-sm">
-          <thead className="text-[0.6875rem] uppercase tracking-[0.12em] text-mute">
-            <tr>
-              <th className="py-2">Product</th>
-              <th className="py-2 text-right">Cost</th>
-              <th className="py-2 text-right">Sell</th>
-              <th className="py-2 text-right">Profit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.productId} className="border-t border-border">
-                <td className="py-3 pr-2">
-                  {r.name}
-                  <p className="font-mono text-xs text-mute">{formatPct(r.marginPct)}</p>
-                </td>
-                <td className="text-right font-mono">
-                  <Rupee amount={r.finishedCost} />
-                </td>
-                <td className="text-right font-mono">
-                  <Rupee amount={r.sellingPrice} />
-                </td>
-                <td className="text-right font-mono">
-                  <Rupee amount={r.profit} />
-                </td>
+        <Card padded={false} className="overflow-hidden">
+          <table className="crm-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th className="text-right">Cost</th>
+                <th className="text-right">Sell</th>
+                <th className="text-right">Profit</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.productId}>
+                  <td className="pr-2">
+                    {r.name}
+                    <p className="font-mono text-xs text-mute">{formatPct(r.marginPct)}</p>
+                  </td>
+                  <td className="text-right font-mono">
+                    <Rupee amount={r.finishedCost} />
+                  </td>
+                  <td className="text-right font-mono">
+                    <Rupee amount={r.sellingPrice} />
+                  </td>
+                  <td className="text-right font-mono font-semibold text-accent">
+                    <Rupee amount={r.profit} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Card>
+      </PageBody>
     </>
   )
 }

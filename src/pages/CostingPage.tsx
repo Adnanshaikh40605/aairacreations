@@ -90,7 +90,7 @@ export function CostingPage(_props: CostingPageProps) {
     return (
       <>
         <TopBar title="Costing" backTo={`/inventory/${id}`} />
-        <div className="skeleton mx-4 h-40 rounded-[1.25rem]" />
+        <div className="skeleton mx-4 mt-3 h-40 rounded-[1.25rem]" />
       </>
     )
   }
@@ -98,8 +98,8 @@ export function CostingPage(_props: CostingPageProps) {
   return (
     <>
       <TopBar title="Costing" backTo={`/inventory/${id}`} />
-      <div className="space-y-5 px-4 pb-28">
-        <p className="text-sm text-mute">{p.name}</p>
+      <div className="space-y-4 px-4 pb-28 pt-3">
+        <p className="text-sm font-medium text-mute">{p.name}</p>
         <Field label="Purchase price">
           <Input
             type="number"
@@ -110,9 +110,7 @@ export function CostingPage(_props: CostingPageProps) {
 
         <section>
           <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-mute">
-              Additional costs
-            </h2>
+            <h2 className="section-label">Additional costs</h2>
             <button
               type="button"
               className="min-h-11 text-sm text-accent"
@@ -155,9 +153,7 @@ export function CostingPage(_props: CostingPageProps) {
 
         <section>
           <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-mute">
-              Materials
-            </h2>
+            <h2 className="section-label">Materials</h2>
             <button
               type="button"
               className="min-h-11 text-sm text-accent"
@@ -218,9 +214,7 @@ export function CostingPage(_props: CostingPageProps) {
 
         <section>
           <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-mute">
-              Labour
-            </h2>
+            <h2 className="section-label">Labour</h2>
             <button
               type="button"
               className="min-h-11 text-sm text-accent"
@@ -258,10 +252,10 @@ export function CostingPage(_props: CostingPageProps) {
           </div>
         </section>
       </div>
-      <div className="fixed inset-x-0 bottom-16 z-10 mx-auto max-w-[440px] border-t border-border bg-surface px-4 py-3">
+      <div className="app-frame fixed inset-x-0 bottom-16 z-10 border-t-4 border-t-accent bg-surface px-4 py-3 shadow-timber">
         <div className="flex items-end justify-between">
           <div>
-            <p className="text-xs text-mute">Additional ₹{extra.toLocaleString('en-IN')}</p>
+            <p className="text-xs font-medium text-mute">Additional ₹{extra.toLocaleString('en-IN')}</p>
             <p className={`font-mono text-lg font-semibold ${flash ? 'text-accent' : 'text-ink'}`}>
               Final <Rupee amount={total} />
             </p>

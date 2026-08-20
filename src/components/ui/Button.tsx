@@ -20,7 +20,7 @@ export function Button({
 }: ButtonProps) {
   const styles = {
     primary: 'bg-accent text-on-accent',
-    secondary: 'bg-surface text-ink border border-border',
+    secondary: 'bg-chip text-ink',
     ghost: 'bg-transparent text-mute',
     danger: 'bg-sold text-on-accent',
   } as const
@@ -30,7 +30,7 @@ export function Button({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        'min-h-11 w-full rounded-[0.875rem] px-4 text-[0.9375rem] font-semibold active:scale-[0.98] disabled:opacity-50',
+        'min-h-11 w-full rounded-[0.875rem] px-4 text-[0.9375rem] font-semibold transition-[transform,opacity] duration-200 active:translate-y-px active:scale-[0.98] disabled:opacity-50',
         styles[variant],
         className,
       )}

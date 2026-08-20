@@ -18,7 +18,7 @@ export function BottomNav({ className }: BottomNavProps) {
   return (
     <nav
       className={cn(
-        'fixed inset-x-0 bottom-0 z-20 mx-auto max-w-[440px] border-t border-chrome-line bg-chrome pb-[env(safe-area-inset-bottom)]',
+        'app-frame fixed inset-x-0 bottom-0 z-20 border-t border-chrome-line bg-chrome pb-[env(safe-area-inset-bottom)]',
         className,
       )}
     >

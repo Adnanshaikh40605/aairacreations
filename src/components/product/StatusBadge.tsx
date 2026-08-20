@@ -1,5 +1,5 @@
 import { cn } from '../../lib/cn.ts'
-import { STATUS_COLOR, STATUS_LABEL } from '../../lib/status.ts'
+import { STATUS_LABEL, STATUS_TINT } from '../../lib/status.ts'
 import type { ProductStatus } from '../../types.ts'
 
 export interface StatusBadgeProps {
@@ -8,11 +8,15 @@ export interface StatusBadgeProps {
 
 export function StatusBadge({ status }: StatusBadgeProps) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-mute">
+    <span
+      className={cn(
+        'inline-flex min-h-7 shrink-0 items-center gap-1.5 rounded-full px-2.5 text-xs font-semibold',
+        STATUS_TINT[status],
+      )}
+    >
       <span
         className={cn(
-          'h-2 w-2 rounded-full',
-          STATUS_COLOR[status],
+          'h-1.5 w-1.5 rounded-full bg-current',
           status === 'available' || status === 'under_repair' ? 'pulse-dot' : '',
         )}
       />

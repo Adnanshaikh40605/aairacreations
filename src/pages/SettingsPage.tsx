@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext.tsx'
 import { Button } from '../components/ui/Button.tsx'
+import { Card } from '../components/ui/Card.tsx'
+import { PageBody } from '../components/ui/PageBody.tsx'
+import { SectionLabel } from '../components/ui/SectionLabel.tsx'
 import { TopBar } from '../components/layout/TopBar.tsx'
 
 export interface SettingsPageProps {
@@ -25,10 +28,12 @@ export function SettingsPage(_props: SettingsPageProps) {
   return (
     <>
       <TopBar title="More" />
-      <div className="space-y-4 px-4">
-        <p className="text-sm text-mute">
-          {user?.name} · {user?.role}
-        </p>
+      <PageBody>
+        <Card accent="left">
+          <SectionLabel>Signed in</SectionLabel>
+          <p className="mt-1 font-semibold">{user?.name}</p>
+          <p className="text-sm capitalize text-mute">{user?.role}</p>
+        </Card>
         <ul className="divide-y divide-border overflow-hidden rounded-[1.25rem] border border-border bg-surface">
           {links.map((l) => (
             <li key={l.to}>
@@ -41,7 +46,7 @@ export function SettingsPage(_props: SettingsPageProps) {
         <Button variant="secondary" onClick={logout}>
           Sign out
         </Button>
-      </div>
+      </PageBody>
     </>
   )
 }

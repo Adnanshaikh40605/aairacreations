@@ -1,3 +1,4 @@
+import { Plus } from 'lucide-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
@@ -6,7 +7,10 @@ import { useAuth } from '../auth/AuthContext.tsx'
 import { Rupee } from '../components/money/Rupee.tsx'
 import { Button } from '../components/ui/Button.tsx'
 import { Card } from '../components/ui/Card.tsx'
+import { EmptyState } from '../components/ui/EmptyState.tsx'
 import { Field, Input, Select } from '../components/ui/Field.tsx'
+import { PageBody } from '../components/ui/PageBody.tsx'
+import { SectionLabel } from '../components/ui/SectionLabel.tsx'
 import { TopBar } from '../components/layout/TopBar.tsx'
 import { useProduct, useProducts, useSales, useShowrooms, useToken } from '../hooks/useApi.ts'
 import { productFinishedCost } from '../lib/costing.ts'
@@ -24,30 +28,46 @@ export function SalesPage(_props: SalesPageProps) {
       <TopBar
         title="Sales"
         action={
-          <Link to="/sales/new" className="text-sm font-semibold text-accent">
-            Record
+          <Link to="/sales/new" className="flex h-11 w-11 items-center justify-center" aria-label="Record sale">
+            <Plus size={22} />
           </Link>
         }
       />
-      <ul className="space-y-2 px-4">
-        {(sales ?? []).map((s) => {
-          const p = map.get(s.productId)
-          return (
-            <li key={s.id}>
-              <Card padded={false} className="px-4 py-3">
-                <div className="flex justify-between">
-                  <p className="font-semibold">{p?.name ?? s.productId}</p>
-                  <Rupee amount={s.unitPrice * s.quantity + s.deliveryCharge} />
-                </div>
-                <p className="font-mono text-xs text-mute">
-                  {s.soldAt.slice(0, 10)}
-                  {s.deliveryCharge ? ` · delivery ₹${s.deliveryCharge}` : ''}
-                </p>
-              </Card>
-            </li>
-          )
-        })}
-      </ul>
+      <PageBody>
+        {(sales ?? []).length === 0 ? (
+          <EmptyState
+            message="No sales recorded this month. Log a floor sale to see it here."
+            action={
+              <Link
+                to="/sales/new"
+                className="flex min-h-11 items-center justify-center rounded-[0.875rem] bg-accent font-semibold text-on-accent"
+              >
+                Record sale
+              </Link>
+            }
+          />
+        ) : (
+          <ul className="space-y-2">
+            {(sales ?? []).map((s, i) => {
+              const p = map.get(s.productId)
+              return (
+                <li key={s.id} className="enter-row" style={{ ['--index' as string]: i }}>
+                  <Card padded={false} accent="left" className="px-4 py-2.5">
+                    <div className="flex justify-between gap-3">
+                      <p className="font-semibold">{p?.name ?? s.productId}</p>
+                      <Rupee className="font-semibold text-accent" amount={s.unitPrice * s.quantity + s.deliveryCharge} />
+                    </div>
+                    <p className="font-mono text-xs text-mute">
+                      {s.soldAt.slice(0, 10)}
+                      {s.deliveryCharge ? ` · delivery ₹${s.deliveryCharge}` : ''}
+                    </p>
+                  </Card>
+                </li>
+              )
+            })}
+          </ul>
+        )}
+      </PageBody>
     </>
   )
 }
@@ -97,7 +117,7 @@ export function RecordSalePage(_props: RecordSalePageProps) {
     <>
       <TopBar title="Record sale" backTo="/sales" />
       <form
-        className="space-y-4 px-4"
+        className="space-y-3 px-4 pt-3"
         onSubmit={(e) => {
           e.preventDefault()
           mutate.mutate()
@@ -125,25 +145,26 @@ export function RecordSalePage(_props: RecordSalePageProps) {
           </Field>
         ) : null}
         <Field label="Quantity">
-          <Input type="number" min={1} value={qty} onChange={(e) => setQty(Number(e.target.value))} />
+          <Input className="font-mono" type="number" min={1} value={qty} onChange={(e) => setQty(Number(e.target.value))} />
         </Field>
         <Field label="Selling price">
-          <Input type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} />
+          <Input className="font-mono" type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} />
         </Field>
         <Field label="Delivery charge (optional)">
           <Input
+            className="font-mono"
             type="number"
             value={delivery}
             onChange={(e) => setDelivery(Number(e.target.value))}
           />
         </Field>
         {selected ? (
-          <Card>
-            <p className="text-sm text-mute">Finished cost</p>
-            <Rupee className="text-lg font-semibold" amount={cost} />
+          <Card accent="top">
+            <SectionLabel>Finished cost</SectionLabel>
+            <Rupee className="text-lg font-semibold text-accent" amount={cost} />
             <p className="mt-2 text-sm text-mute">
               Gross on this sale{' '}
-              <Rupee className="text-ink" amount={price * qty + delivery - cost * qty} />
+              <Rupee className="font-semibold text-accent" amount={price * qty + delivery - cost * qty} />
             </p>
           </Card>
         ) : null}

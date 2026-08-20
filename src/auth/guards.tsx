@@ -11,7 +11,7 @@ export function RequireAuth({ children }: GuardProps) {
   const location = useLocation()
   if (loading) {
     return (
-      <div className="mx-auto flex min-h-[100dvh] max-w-[440px] items-center justify-center bg-canvas">
+      <div className="app-frame flex min-h-[100dvh] items-center justify-center bg-canvas">
         <div className="skeleton h-10 w-40 rounded-xl" />
       </div>
     )

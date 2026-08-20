@@ -1,6 +1,8 @@
 import { Link, useParams } from 'react-router-dom'
 import { Rupee } from '../components/money/Rupee.tsx'
 import { Card } from '../components/ui/Card.tsx'
+import { PageBody } from '../components/ui/PageBody.tsx'
+import { SectionLabel } from '../components/ui/SectionLabel.tsx'
 import { TopBar } from '../components/layout/TopBar.tsx'
 import { useOverview, useShowrooms } from '../hooks/useApi.ts'
 import { useAuth } from '../auth/AuthContext.tsx'
@@ -17,46 +19,50 @@ export function ShowroomsPage(_props: ShowroomsPageProps) {
     return (
       <>
         <TopBar title="Showroom" />
-        <p className="px-4 text-mute">Your branch is on Home.</p>
+        <PageBody>
+          <p className="text-mute">Your branch is on Home.</p>
+        </PageBody>
       </>
     )
   }
   return (
     <>
       <TopBar title="Showrooms" />
-      <div className="px-4">
-        <table className="w-full text-left text-sm">
-          <thead className="text-[0.6875rem] uppercase tracking-[0.12em] text-mute">
-            <tr>
-              <th className="py-2">Branch</th>
-              <th className="py-2 text-right">Rev</th>
-              <th className="py-2 text-right">Exp</th>
-              <th className="py-2 text-right">Profit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {(data?.showrooms ?? []).map((sr) => (
-              <tr key={sr.showroomId} className="border-t border-border">
-                <td className="py-3">
-                  <Link to={`/showrooms/${sr.showroomId}`} className="font-semibold">
-                    {sr.city}
-                  </Link>
-                  <p className="text-xs text-mute">{formatPct(sr.marginPct)}</p>
-                </td>
-                <td className="text-right font-mono">
-                  <Rupee amount={sr.revenue} compact />
-                </td>
-                <td className="text-right font-mono">
-                  <Rupee amount={sr.expenses} compact />
-                </td>
-                <td className="text-right font-mono">
-                  <Rupee amount={sr.profit} compact />
-                </td>
+      <PageBody>
+        <Card padded={false} className="overflow-hidden">
+          <table className="crm-table">
+            <thead>
+              <tr>
+                <th>Branch</th>
+                <th className="text-right">Rev</th>
+                <th className="text-right">Exp</th>
+                <th className="text-right">Profit</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {(data?.showrooms ?? []).map((sr) => (
+                <tr key={sr.showroomId}>
+                  <td>
+                    <Link to={`/showrooms/${sr.showroomId}`} className="font-semibold text-accent">
+                      {sr.city}
+                    </Link>
+                    <p className="font-mono text-xs text-mute">{formatPct(sr.marginPct)}</p>
+                  </td>
+                  <td className="text-right font-mono">
+                    <Rupee amount={sr.revenue} compact />
+                  </td>
+                  <td className="text-right font-mono">
+                    <Rupee amount={sr.expenses} compact />
+                  </td>
+                  <td className="text-right font-mono font-semibold text-accent">
+                    <Rupee amount={sr.profit} compact />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Card>
+      </PageBody>
     </>
   )
 }
@@ -74,29 +80,27 @@ export function ShowroomDetailPage(_props: ShowroomDetailPageProps) {
   return (
     <>
       <TopBar title={sr?.city ?? 'Showroom'} backTo="/showrooms" />
-      <div className="space-y-4 px-4">
+      <PageBody>
         <p className="text-sm text-mute">{sr?.address}</p>
-        <Card>
-          <p className="text-sm text-mute">August operating profit</p>
-          <p className="text-2xl font-semibold text-accent">
+        <Card accent="top" className="rounded-[1.5rem] shadow-timber">
+          <SectionLabel>August operating profit</SectionLabel>
+          <p className="mt-1 font-mono text-2xl font-semibold text-accent">
             <Rupee amount={health?.profit ?? 0} compact />
           </p>
           <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
             <div>
               <p className="text-mute">Revenue</p>
-              <Rupee amount={health?.revenue ?? 0} compact />
+              <Rupee className="font-semibold" amount={health?.revenue ?? 0} compact />
             </div>
             <div>
               <p className="text-mute">Expenses</p>
-              <Rupee amount={health?.expenses ?? 0} compact />
+              <Rupee className="font-semibold" amount={health?.expenses ?? 0} compact />
             </div>
           </div>
         </Card>
-        <Card>
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-mute">
-            Expense mix
-          </p>
-          <ul className="mt-2 space-y-1 text-sm">
+        <Card accent="left">
+          <SectionLabel>Expense mix</SectionLabel>
+          <ul className="mt-2 space-y-1.5 text-sm">
             {Object.entries(data?.expensesByGroup ?? {}).map(([g, amt]) => (
               <li key={g} className="flex justify-between capitalize">
                 <span className="text-mute">{g}</span>
@@ -105,7 +109,7 @@ export function ShowroomDetailPage(_props: ShowroomDetailPageProps) {
             ))}
           </ul>
         </Card>
-      </div>
+      </PageBody>
     </>
   )
 }

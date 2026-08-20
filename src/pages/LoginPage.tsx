@@ -2,7 +2,9 @@ import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext.tsx'
 import { Button } from '../components/ui/Button.tsx'
+import { Card } from '../components/ui/Card.tsx'
 import { Field, Input } from '../components/ui/Field.tsx'
+import { SectionLabel } from '../components/ui/SectionLabel.tsx'
 
 export interface LoginPageProps {
   className?: string
@@ -31,58 +33,64 @@ export function LoginPage(_props: LoginPageProps) {
   }
 
   return (
-    <div className="mx-auto flex min-h-[100dvh] max-w-[440px] flex-col justify-center bg-canvas px-5 py-10">
-      <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-mute">
-        Furniture costing
-      </p>
-      <h1 className="mt-2 text-[1.75rem] font-semibold tracking-tight">AAIRA CREATION</h1>
-      <p className="mt-2 max-w-[28ch] text-mute">
-        Finished cost, showroom accounts, and real operating profit — on the floor.
-      </p>
-      <form onSubmit={onSubmit} className="mt-8 flex flex-col gap-4">
-        <Field label="Email" error={error}>
-          <Input
-            type="email"
-            autoComplete="username"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Field>
-        <Field label="Password">
-          <Input
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Field>
-        <Button type="submit" disabled={busy}>
-          {busy ? 'Signing in…' : 'Sign in'}
-        </Button>
-      </form>
-      <div className="mt-8 space-y-2 text-sm text-mute">
-        <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em]">Demo</p>
-        <button
-          type="button"
-          className="block min-h-11 w-full rounded-xl border border-border bg-surface px-3 text-left"
-          onClick={() => {
-            setEmail('nandini@aaira.in')
-            setPassword('aaira123')
-          }}
-        >
-          Owner — nandini@aaira.in
-        </button>
-        <button
-          type="button"
-          className="block min-h-11 w-full rounded-xl border border-border bg-surface px-3 text-left"
-          onClick={() => {
-            setEmail('rahul@aaira.in')
-            setPassword('aaira123')
-          }}
-        >
-          Staff, Lonavala — rahul@aaira.in
-        </button>
-        <p>Password for both: aaira123</p>
+    <div className="app-frame flex min-h-[100dvh] flex-col bg-canvas">
+      <header className="flex min-h-14 items-center bg-chrome px-5 text-chrome-ink">
+        <p className="font-semibold tracking-tight">AAIRA</p>
+        <p className="ml-auto text-sm text-accent-bright">Sign in</p>
+      </header>
+      <div className="flex flex-1 flex-col justify-center px-5 py-8">
+        <SectionLabel>Furniture costing</SectionLabel>
+        <h1 className="mt-2 text-[1.75rem] font-semibold tracking-tight">AAIRA CREATION</h1>
+        <p className="mt-2 max-w-[28ch] text-mute">
+          Finished cost, showroom accounts, and real operating profit — on the floor.
+        </p>
+        <Card accent="top" className="mt-6">
+          <form onSubmit={onSubmit} className="flex flex-col gap-4">
+            <Field label="Email" error={error}>
+              <Input
+                type="email"
+                autoComplete="username"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Field>
+            <Field label="Password">
+              <Input
+                type="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Field>
+            <Button type="submit" disabled={busy}>
+              {busy ? 'Signing in…' : 'Sign in'}
+            </Button>
+          </form>
+        </Card>
+        <div className="mt-6 space-y-2 text-sm">
+          <SectionLabel>Demo</SectionLabel>
+          <button
+            type="button"
+            className="block min-h-11 w-full rounded-xl border border-border bg-surface px-3 text-left font-medium"
+            onClick={() => {
+              setEmail('nandini@aaira.in')
+              setPassword('aaira123')
+            }}
+          >
+            Owner — nandini@aaira.in
+          </button>
+          <button
+            type="button"
+            className="block min-h-11 w-full rounded-xl border border-border bg-surface px-3 text-left font-medium"
+            onClick={() => {
+              setEmail('rahul@aaira.in')
+              setPassword('aaira123')
+            }}
+          >
+            Staff, Lonavala — rahul@aaira.in
+          </button>
+          <p className="text-mute">Password for both: aaira123</p>
+        </div>
       </div>
     </div>
   )

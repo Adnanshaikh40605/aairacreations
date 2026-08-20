@@ -1,3 +1,4 @@
+import { Plus } from 'lucide-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
@@ -6,7 +7,10 @@ import { useAuth } from '../auth/AuthContext.tsx'
 import { Rupee } from '../components/money/Rupee.tsx'
 import { Button } from '../components/ui/Button.tsx'
 import { Card } from '../components/ui/Card.tsx'
+import { EmptyState } from '../components/ui/EmptyState.tsx'
 import { Field, Input, Select, TextArea } from '../components/ui/Field.tsx'
+import { PageBody } from '../components/ui/PageBody.tsx'
+import { SectionLabel } from '../components/ui/SectionLabel.tsx'
 import { TopBar } from '../components/layout/TopBar.tsx'
 import { useExpenses, useMarketing, useShowrooms, useToken } from '../hooks/useApi.ts'
 import type { ExpenseGroup } from '../types.ts'
@@ -49,40 +53,55 @@ export function ExpensesPage(_props: ExpensesPageProps) {
       <TopBar
         title="Expenses"
         action={
-          <Link to="/expenses/new" className="text-sm font-semibold text-accent">
-            Add
+          <Link to="/expenses/new" className="flex h-11 w-11 items-center justify-center" aria-label="Add expense">
+            <Plus size={22} />
           </Link>
         }
       />
-      <div className="space-y-4 px-4">
-        <Card>
-          <p className="text-sm text-mute">August 2026</p>
-          <p className="text-2xl font-semibold text-accent">
+      <PageBody>
+        <Card accent="top" className="rounded-[1.5rem] shadow-timber">
+          <SectionLabel>August 2026</SectionLabel>
+          <p className="mt-1 font-mono text-2xl font-semibold text-accent">
             <Rupee amount={total} compact />
           </p>
           {budget ? (
             <p className="mt-2 text-sm text-mute">
-              Marketing budget <Rupee amount={budget} /> · spent <Rupee amount={marketingSpend} /> ·
-              remaining <Rupee amount={budget - marketingSpend} />
+              Marketing budget <Rupee className="text-ink" amount={budget} /> · spent{' '}
+              <Rupee className="text-ink" amount={marketingSpend} /> · remaining{' '}
+              <Rupee className="font-semibold text-accent" amount={budget - marketingSpend} />
             </p>
           ) : null}
         </Card>
-        <ul className="space-y-2">
-          {(data ?? []).map((e) => (
-            <li key={e.id}>
-              <Card padded={false} className="flex items-center justify-between px-4 py-3">
-                <div>
-                  <p className="font-medium">{e.category}</p>
-                  <p className="text-xs capitalize text-mute">
-                    {e.group} · {e.incurredOn}
-                  </p>
-                </div>
-                <Rupee amount={e.amount} />
-              </Card>
-            </li>
-          ))}
-        </ul>
-      </div>
+        {(data ?? []).length === 0 ? (
+          <EmptyState
+            message="No expenses logged this month. Add rent, salary, or marketing spend."
+            action={
+              <Link
+                to="/expenses/new"
+                className="flex min-h-11 items-center justify-center rounded-[0.875rem] bg-accent font-semibold text-on-accent"
+              >
+                Add expense
+              </Link>
+            }
+          />
+        ) : (
+          <ul className="space-y-2">
+            {(data ?? []).map((e, i) => (
+              <li key={e.id} className="enter-row" style={{ ['--index' as string]: i }}>
+                <Card padded={false} accent="left" className="flex items-center justify-between px-4 py-2.5">
+                  <div>
+                    <p className="font-medium">{e.category}</p>
+                    <p className="text-xs capitalize text-mute">
+                      {e.group} · {e.incurredOn}
+                    </p>
+                  </div>
+                  <Rupee className="font-semibold" amount={e.amount} />
+                </Card>
+              </li>
+            ))}
+          </ul>
+        )}
+      </PageBody>
     </>
   )
 }
@@ -120,7 +139,7 @@ export function AddExpensePage(_props: AddExpensePageProps) {
     <>
       <TopBar title="Add expense" backTo="/expenses" />
       <form
-        className="space-y-4 px-4"
+        className="space-y-3 px-4 pt-3"
         onSubmit={(e) => {
           e.preventDefault()
           mutate.mutate()
@@ -163,7 +182,7 @@ export function AddExpensePage(_props: AddExpensePageProps) {
           </Select>
         </Field>
         <Field label="Amount">
-          <Input type="number" value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
+          <Input className="font-mono" type="number" value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
         </Field>
         <Field label="Date">
           <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />

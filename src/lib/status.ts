@@ -24,6 +24,18 @@ export const STATUS_COLOR: Record<ProductStatus, string> = {
   not_available: 'bg-na',
 }
 
+export const STATUS_TINT: Record<ProductStatus, string> = {
+  purchased: 'bg-na-soft text-na',
+  received: 'bg-repair-soft text-repair',
+  costing: 'bg-repair-soft text-repair',
+  under_repair: 'bg-repair-soft text-repair',
+  ready_for_sale: 'bg-ready-soft text-ready',
+  available: 'bg-available-soft text-available',
+  reserved: 'bg-reserved-soft text-reserved',
+  sold: 'bg-sold-soft text-sold',
+  not_available: 'bg-na-soft text-na',
+}
+
 export const LIFECYCLE: ProductStatus[] = [
   'purchased',
   'received',

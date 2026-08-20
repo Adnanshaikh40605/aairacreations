@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { Rupee } from '../components/money/Rupee.tsx'
 import { Card } from '../components/ui/Card.tsx'
+import { PageBody } from '../components/ui/PageBody.tsx'
+import { SectionLabel } from '../components/ui/SectionLabel.tsx'
 import { TopBar } from '../components/layout/TopBar.tsx'
 import { usePnl } from '../hooks/useApi.ts'
 import { formatPct, monthLabel } from '../lib/money.ts'
@@ -17,7 +19,9 @@ export function PnlPage(_props: PnlPageProps) {
     return (
       <>
         <TopBar title="P&L" />
-        <div className="skeleton mx-4 h-40 rounded-[1.25rem]" />
+        <PageBody>
+          <div className="skeleton h-40 rounded-[1.25rem]" />
+        </PageBody>
       </>
     )
   }
@@ -32,20 +36,21 @@ export function PnlPage(_props: PnlPageProps) {
   return (
     <>
       <TopBar title="Monthly P&L" />
-      <div className="space-y-4 px-4">
+      <PageBody>
         <p className="text-sm text-mute">
           {monthLabel(data.month)}
           {user?.role === 'staff' ? ' · your branch' : ' · all showrooms'}
         </p>
-        <Card>
+        <Card accent="top">
           <Row label="Sales" amount={data.sales} />
           <Row label="Product cost" amount={data.productCost} />
           <Row label="Gross profit" amount={data.grossProfit} strong />
           <Row label="Operating expenses" amount={data.operatingExpenses} />
           <Row label="Net operating profit" amount={data.netOperatingProfit} strong />
         </Card>
-        <Card>
-          <p className="text-sm">
+        <Card accent="left">
+          <SectionLabel>Comparisons</SectionLabel>
+          <p className="mt-2 text-sm">
             vs {monthLabel(data.prevMonth.month)} sales {formatPct(mom)}
           </p>
           <p className="mt-1 text-sm text-mute">
@@ -58,17 +63,17 @@ export function PnlPage(_props: PnlPageProps) {
             Net then <Rupee amount={data.prevYear.netOperatingProfit} compact />
           </p>
         </Card>
-        <Link to="/reports/breakeven" className="block text-center text-sm text-accent">
+        <Link to="/reports/breakeven" className="block text-center text-sm font-semibold text-accent">
           Break-even for this month
         </Link>
-      </div>
+      </PageBody>
     </>
   )
 }
 
 function Row({ label, amount, strong }: { label: string; amount: number; strong?: boolean }) {
   return (
-    <div className={`flex justify-between py-2 ${strong ? 'font-semibold' : ''} text-sm`}>
+    <div className={`flex justify-between border-b border-border py-2 last:border-b-0 ${strong ? 'font-semibold' : ''} text-sm`}>
       <span className="text-mute">{label}</span>
       <Rupee className={strong ? 'text-accent' : undefined} amount={amount} />
     </div>

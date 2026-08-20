@@ -5,6 +5,9 @@ import { Rupee } from '../components/money/Rupee.tsx'
 import { StatusBadge } from '../components/product/StatusBadge.tsx'
 import { Button } from '../components/ui/Button.tsx'
 import { Card } from '../components/ui/Card.tsx'
+import { Chip } from '../components/ui/Chip.tsx'
+import { PageBody } from '../components/ui/PageBody.tsx'
+import { SectionLabel } from '../components/ui/SectionLabel.tsx'
 import { TopBar } from '../components/layout/TopBar.tsx'
 import { useProduct, useShowrooms, useToken } from '../hooks/useApi.ts'
 import { additionalDirectCost, productFinishedCost } from '../lib/costing.ts'
@@ -32,7 +35,9 @@ export function ProductDetailPage(_props: ProductDetailPageProps) {
     return (
       <>
         <TopBar title="Product" backTo="/inventory" />
-        <div className="skeleton mx-4 h-48 rounded-[1.25rem]" />
+        <PageBody>
+          <div className="skeleton h-48 rounded-[1.25rem]" />
+        </PageBody>
       </>
     )
   }
@@ -45,42 +50,40 @@ export function ProductDetailPage(_props: ProductDetailPageProps) {
   return (
     <>
       <TopBar title={p.name} backTo="/inventory" />
-      <div className="space-y-4 px-4">
+      <PageBody>
         <img src={p.imageUrl} alt="" className="h-48 w-full rounded-[1.25rem] object-cover" />
-        <div className="flex items-center justify-between">
+        <div className="flex items-start justify-between gap-3">
           <div>
             <p className="font-mono text-xs text-mute">
               {p.code} · {city}
             </p>
-            <StatusBadge status={p.status} />
+            <p className="mt-1 text-sm text-mute">
+              {p.category} · {p.material}
+            </p>
           </div>
-          <p className="text-sm text-mute">
-            {p.category} · {p.material}
-          </p>
+          <StatusBadge status={p.status} />
         </div>
 
-        <Card>
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-mute">
-            Finished cost
-          </p>
-          <p className="mt-2 text-2xl font-semibold">
+        <Card accent="top">
+          <SectionLabel>Finished cost</SectionLabel>
+          <p className="mt-2 font-mono text-2xl font-semibold text-accent">
             <Rupee amount={cost} />
           </p>
-          <ul className="mt-3 space-y-1 font-mono text-sm">
+          <ul className="mt-3 space-y-1.5 font-mono text-sm">
             <li className="flex justify-between">
-              <span className="text-mute">Purchase</span>
+              <span className="font-sans text-mute">Purchase</span>
               <Rupee amount={p.purchasePrice} />
             </li>
             <li className="flex justify-between">
-              <span className="text-mute">Additional + materials + labour</span>
+              <span className="font-sans text-mute">Additional + materials + labour</span>
               <Rupee amount={extra} />
             </li>
             <li className="flex justify-between">
-              <span className="text-mute">Selling</span>
+              <span className="font-sans text-mute">Selling</span>
               <Rupee amount={p.sellingPrice} />
             </li>
             <li className="flex justify-between">
-              <span className="text-mute">Gross profit</span>
+              <span className="font-sans text-mute">Gross profit</span>
               <span className={gp >= 0 ? 'text-available' : 'text-sold'}>
                 <Rupee amount={gp} /> ({grossMarginPct(p.sellingPrice, cost).toFixed(2)}%)
               </span>
@@ -98,29 +101,20 @@ export function ProductDetailPage(_props: ProductDetailPageProps) {
         </div>
 
         <Card>
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-mute">
-            Lifecycle
-          </p>
+          <SectionLabel>Lifecycle</SectionLabel>
           <ol className="mt-3 flex flex-wrap gap-2">
             {LIFECYCLE.map((step) => (
-              <li
-                key={step}
-                className={
-                  p.status === step
-                    ? 'rounded-full bg-accent-soft px-3 py-1 text-xs text-accent'
-                    : 'rounded-full border border-border px-3 py-1 text-xs text-mute'
-                }
-              >
-                {STATUS_LABEL[step]}
+              <li key={step}>
+                <Chip selected={p.status === step} className="pointer-events-none min-h-9 text-xs">
+                  {STATUS_LABEL[step]}
+                </Chip>
               </li>
             ))}
           </ol>
         </Card>
 
         <Card>
-          <p className="mb-2 text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-mute">
-            Floor status
-          </p>
+          <SectionLabel className="mb-2">Floor status</SectionLabel>
           <div className="grid grid-cols-2 gap-2">
             {FLOOR_STATUSES.map((s) => (
               <Button
@@ -137,7 +131,7 @@ export function ProductDetailPage(_props: ProductDetailPageProps) {
         {p.status !== 'sold' ? (
           <Button onClick={() => navigate(`/sales/new?productId=${p.id}`)}>Record sale</Button>
         ) : null}
-      </div>
+      </PageBody>
     </>
   )
 }
