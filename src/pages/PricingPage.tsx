@@ -55,7 +55,7 @@ export function PricingPage(_props: PricingPageProps) {
       <div className="space-y-4 px-4">
         <Card>
           <p className="text-sm text-mute">Finished cost</p>
-          <p className="font-mono text-2xl font-semibold">
+          <p className="font-mono text-2xl font-semibold text-accent">
             <Rupee amount={cost} />
           </p>
         </Card>

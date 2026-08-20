@@ -36,13 +36,13 @@ export function HomePage(_props: HomePageProps) {
               {monthLabel(data.month)} · this branch
             </p>
             <p className="mt-2 text-sm text-mute">Today&apos;s sales (month so far)</p>
-            <p className="mt-1 text-[1.75rem] font-semibold">
+            <p className="mt-1 text-[1.75rem] font-semibold text-accent">
               <Rupee amount={data.revenue} compact />
             </p>
             <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
               <div>
                 <p className="text-mute">Available</p>
-                <p className="font-mono text-lg">{data.inventory.available}</p>
+                <p className="font-mono text-lg text-accent">{data.inventory.available}</p>
               </div>
               <div>
                 <p className="text-mute">Under repair</p>
@@ -51,7 +51,7 @@ export function HomePage(_props: HomePageProps) {
             </div>
           </Card>
           <div className="grid gap-2">
-            <Link className="flex min-h-11 items-center justify-center rounded-[0.875rem] bg-accent font-semibold text-surface" to="/inventory/new">
+            <Link className="flex min-h-11 items-center justify-center rounded-[0.875rem] bg-accent font-semibold text-on-accent" to="/inventory/new">
               Add product
             </Link>
             <Link className="flex min-h-11 items-center justify-center rounded-[0.875rem] border border-border bg-surface font-semibold" to="/sales/new">
@@ -75,7 +75,7 @@ export function HomePage(_props: HomePageProps) {
             {monthLabel(data.month)}
           </p>
           <p className="mt-3 text-sm text-mute">Net operating profit</p>
-          <p className="text-[1.75rem] font-semibold tracking-tight">
+          <p className="text-[1.75rem] font-semibold tracking-tight text-accent">
             <Rupee amount={data.netProfit} compact />
           </p>
           <p className="mt-1 font-mono text-sm text-mute">{formatPct(data.marginPct)} margin</p>

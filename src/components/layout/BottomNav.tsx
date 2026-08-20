@@ -18,7 +18,7 @@ export function BottomNav({ className }: BottomNavProps) {
   return (
     <nav
       className={cn(
-        'fixed inset-x-0 bottom-0 z-20 mx-auto max-w-[440px] border-t border-border bg-surface pb-[env(safe-area-inset-bottom)]',
+        'fixed inset-x-0 bottom-0 z-20 mx-auto max-w-[440px] border-t border-chrome-line bg-chrome pb-[env(safe-area-inset-bottom)]',
         className,
       )}
     >
@@ -31,7 +31,7 @@ export function BottomNav({ className }: BottomNavProps) {
               className={({ isActive }) =>
                 cn(
                   'flex min-h-14 flex-col items-center justify-center gap-0.5 text-[0.625rem] font-medium',
-                  isActive ? 'text-accent' : 'text-mute',
+                  isActive ? 'text-accent-bright' : 'text-chrome-mute',
                 )
               }
             >

@@ -25,7 +25,7 @@ export function BreakEvenPage(_props: BreakEvenPageProps) {
         <p className="text-sm text-mute">{monthLabel(data.month)}</p>
         <Card className="rounded-[1.5rem] shadow-timber">
           <p className="text-sm text-mute">Pieces to cover fixed opex</p>
-          <p className="mt-2 font-mono text-4xl font-semibold">{data.unitsNeeded}</p>
+          <p className="mt-2 font-mono text-4xl font-semibold text-accent">{data.unitsNeeded}</p>
           <p className="mt-2 text-sm text-mute">Sold so far: {data.unitsSold}</p>
         </Card>
         <Card>

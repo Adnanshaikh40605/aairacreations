@@ -3,21 +3,30 @@
 @theme {
   --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
-  --color-canvas: #f4ede4;
-  --color-surface: #fbf7f1;
-  --color-ink: #2c2118;
-  --color-mute: #7a6554;
-  --color-hint: #a8907c;
-  --color-border: rgb(90 62 42 / 0.14);
-  --color-accent: #c4782a;
-  --color-accent-soft: rgb(196 120 42 / 0.16);
+
+  --color-canvas: #eef2f6;
+  --color-surface: #ffffff;
+  --color-ink: #0f172a;
+  --color-mute: #334155;
+  --color-hint: #64748b;
+  --color-border: rgb(15 23 42 / 0.16);
+  --color-accent: #1d4ed8;
+  --color-accent-soft: rgb(29 78 216 / 0.12);
+  --color-accent-bright: #60a5fa;
+  --color-on-accent: #ffffff;
+  --color-chrome: #0b2545;
+  --color-chrome-ink: #f8fafc;
+  --color-chrome-mute: #cbd5e1;
+  --color-chrome-line: rgb(248 250 252 / 0.16);
+  --color-skeleton: #e2e8f0;
+  --color-skeleton-shine: #f8fafc;
   --color-available: #3f6f4a;
   --color-reserved: #c4a035;
   --color-repair: #3d5a73;
   --color-ready: #c46a3a;
   --color-sold: #9a3b32;
-  --color-na: #4a433c;
-  --shadow-timber: 0 8px 24px -8px rgb(74 48 28 / 0.08);
+  --color-na: #475569;
+  --shadow-timber: 0 8px 24px -8px rgb(15 23 42 / 0.16);
 }
 
 html,
@@ -56,7 +65,12 @@ textarea {
 }
 
 .skeleton {
-  background: linear-gradient(90deg, #efe6da 0%, #f7f1e8 50%, #efe6da 100%);
+  background: linear-gradient(
+    90deg,
+    var(--color-skeleton) 0%,
+    var(--color-skeleton-shine) 50%,
+    var(--color-skeleton) 100%
+  );
   background-size: 200% 100%;
   animation: shimmer 1.4s ease-in-out infinite;
 }

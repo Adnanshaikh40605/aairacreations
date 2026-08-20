@@ -78,7 +78,7 @@ export function ShowroomDetailPage(_props: ShowroomDetailPageProps) {
         <p className="text-sm text-mute">{sr?.address}</p>
         <Card>
           <p className="text-sm text-mute">August operating profit</p>
-          <p className="text-2xl font-semibold">
+          <p className="text-2xl font-semibold text-accent">
             <Rupee amount={health?.profit ?? 0} compact />
           </p>
           <div className="mt-3 grid grid-cols-2 gap-2 text-sm">

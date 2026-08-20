@@ -19,10 +19,10 @@ export function Button({
   onClick,
 }: ButtonProps) {
   const styles = {
-    primary: 'bg-accent text-surface',
+    primary: 'bg-accent text-on-accent',
     secondary: 'bg-surface text-ink border border-border',
     ghost: 'bg-transparent text-mute',
-    danger: 'bg-sold text-surface',
+    danger: 'bg-sold text-on-accent',
   } as const
   return (
     <button

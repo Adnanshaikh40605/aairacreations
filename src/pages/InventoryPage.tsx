@@ -52,7 +52,7 @@ export function InventoryPage(_props: InventoryPageProps) {
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search name or SKU"
-          className="min-h-11 w-full rounded-xl border border-border bg-surface px-3 text-sm outline-none focus:ring-2 focus:ring-accent"
+          className="min-h-11 w-full rounded-xl border border-border bg-surface px-3 text-sm outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-canvas"
         />
         <div className="mt-3 flex gap-2 overflow-x-auto pb-2">
           {(['all', ...FLOOR_STATUSES] as const).map((s) => (

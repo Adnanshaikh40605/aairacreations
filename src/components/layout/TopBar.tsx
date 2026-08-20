@@ -11,22 +11,26 @@ export interface TopBarProps {
 
 export function TopBar({ title, backTo, action }: TopBarProps) {
   return (
-    <header className="sticky top-0 z-10 flex min-h-14 items-center gap-2 bg-canvas/95 px-4 backdrop-blur">
+    <header className="sticky top-0 z-10 flex min-h-14 items-center gap-2 bg-chrome px-4 text-chrome-ink">
       {backTo ? (
         <Link
           to={backTo}
-          className="flex h-11 w-11 items-center justify-center rounded-full text-ink"
+          className="flex h-11 w-11 items-center justify-center rounded-full text-chrome-ink"
           aria-label="Back"
         >
           <ChevronLeft size={22} />
         </Link>
       ) : (
-        <Link to="/" className="font-semibold tracking-tight text-ink">
+        <Link to="/" className="font-semibold tracking-tight text-chrome-ink">
           AAIRA
         </Link>
       )}
-      <h1 className={cn('flex-1 text-lg font-semibold', backTo ? '' : 'text-center')}>{title}</h1>
-      <div className="flex min-w-11 justify-end">{action}</div>
+      <h1 className={cn('flex-1 text-lg font-semibold text-chrome-ink', backTo ? '' : 'text-center')}>
+        {title}
+      </h1>
+      <div className="flex min-w-11 justify-end text-accent-bright [&_a]:text-accent-bright [&_button]:text-accent-bright">
+        {action}
+      </div>
     </header>
   )
 }

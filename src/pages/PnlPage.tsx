@@ -70,7 +70,7 @@ function Row({ label, amount, strong }: { label: string; amount: number; strong?
   return (
     <div className={`flex justify-between py-2 ${strong ? 'font-semibold' : ''} text-sm`}>
       <span className="text-mute">{label}</span>
-      <Rupee amount={amount} />
+      <Rupee className={strong ? 'text-accent' : undefined} amount={amount} />
     </div>
   )
 }

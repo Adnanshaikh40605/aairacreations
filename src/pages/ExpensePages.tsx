@@ -57,7 +57,7 @@ export function ExpensesPage(_props: ExpensesPageProps) {
       <div className="space-y-4 px-4">
         <Card>
           <p className="text-sm text-mute">August 2026</p>
-          <p className="text-2xl font-semibold">
+          <p className="text-2xl font-semibold text-accent">
             <Rupee amount={total} compact />
           </p>
           {budget ? (

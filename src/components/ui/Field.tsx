@@ -28,7 +28,7 @@ export function Input({ className, ...props }: InputProps) {
     <input
       {...props}
       className={cn(
-        'min-h-12 w-full rounded-xl border border-border bg-surface px-3 text-[0.9375rem] text-ink outline-none focus:ring-2 focus:ring-accent',
+        'min-h-12 w-full rounded-xl border border-border bg-surface px-3 text-[0.9375rem] text-ink outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-canvas',
         className,
       )}
     />
@@ -44,7 +44,7 @@ export function Select({ className, children, ...props }: SelectProps) {
     <select
       {...props}
       className={cn(
-        'min-h-12 w-full rounded-xl border border-border bg-surface px-3 text-[0.9375rem] text-ink outline-none focus:ring-2 focus:ring-accent',
+        'min-h-12 w-full rounded-xl border border-border bg-surface px-3 text-[0.9375rem] text-ink outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-canvas',
         className,
       )}
     >
@@ -62,7 +62,7 @@ export function TextArea({ className, ...props }: TextAreaProps) {
     <textarea
       {...props}
       className={cn(
-        'min-h-24 w-full rounded-xl border border-border bg-surface px-3 py-3 text-[0.9375rem] text-ink outline-none focus:ring-2 focus:ring-accent',
+        'min-h-24 w-full rounded-xl border border-border bg-surface px-3 py-3 text-[0.9375rem] text-ink outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-canvas',
         className,
       )}
     />
